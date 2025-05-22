@@ -49,4 +49,23 @@ app.get("/gigs/:id", (req, res) => {
   res.send(findGig);
 });
 
+app.delete("/gigs/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const updatedGigs = kygoGigs.filter((x) => x.id !== id);
+  res.json({
+    message: `Gig ${id} has been deleted`,
+    data: updatedGigs,
+  });
+});
+
+app.post("/gigs", (req, res) => {
+  const newGig = req.body;
+  console.log(newGig);
+  kygoGigs.push(newGig);
+  res.json({
+    message: "A new gig has been added",
+    data: kygoGigs,
+  });
+});
+
 module.exports = app;
